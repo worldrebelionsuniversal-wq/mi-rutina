@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>📋 Mis Rutinas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f2f5;
+            padding: 12px;
+            padding-bottom: 30px;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #1a1a2e;
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+        
+        .date-selector {
+            background: white;
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .date-selector label {
+            font-size: 14px;
+            font-weight: 600;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .date-selector input {
+            padding: 10px 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .date-selector button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+            flex: 1;
+            min-width: 70px;
+        }
+        
+        .date-selector .btn-hoy { background: #28a745; }
+        .date-selector .btn-cargar { background: #4a6fa5; }
+        
+        .btn-group {
+            display: flex;
+            gap: 6px;
+            width: 100%;
+            margin-top: 4px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-group button {
+            padding: 10px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            flex: 1;
+            min-width: 60px;
+            color: white;
+        }
+        
+        .btn-exportar { background: #17a2b8; }
+        .btn-importar { background: #ffc107; color: #333 !important; }
+        .btn-respaldos { background: #6c757d; }
+        
+        .stats {
+            background: white;
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 8px;
+            text-align: center;
+        }
+        
+        .stats .stat-item .numero {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4a6fa5;
+        }
+        
+        .stats .stat-item .label {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .rutina-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid #4a6fa5;
+        }
+        
+        .rutina-card h2 {
+            color: #1a1a2e;
+            font-size: 17px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        
+        .rutina-card h2 .progreso {
+            font-size: 13px;
+            background: #e8f0fe;
+            padding: 4px 12px;
+            border-radius: 20px;
+            color: #4a6fa5;
+        }
+        
+        .accion-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 8px;
+            margin: 4px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.2s;
+            flex-wrap: wrap;
+        }
+        
+        .accion-item input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: #4a6fa5;
+            flex-shrink: 0;
+        }
+        
+        .accion-item .label-text {
+            flex: 1;
+            font-size: 15px;
+            min-width: 100px;
+        }
+        
+        .accion-item .label-text.completada {
+            text-decoration: line-through;
+            color: #999;
+        }
+        
+        .accion-item .fallo {
+            display: none;
+            width: 100%;
+            margin-top: 6px;
+        }
+        
+        .accion-item .fallo input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 2px solid #ff6b6b;
+            border-radius: 6px;
+            font-size: 14px;
+            background: #fff5f5;
+        }
+        
+        .accion-item.fallada {
+            background: #fff5f5;
+            border-left: 3px solid #ff6b6b;
+        }
+        
+        .accion-item.fallada .fallo {
+            display: block;
+        }
+        
+        .toggle-justificacion {
+            background: none;
+            border: none;
+            color: #4a6fa5;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 6px 10px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+        
+        .toggle-justificacion:active {
+            background: #e8f0fe;
+        }
+        
+        .btn-guardar {
+            width: 100%;
+            padding: 14px;
+            background: #4a6fa5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+        
+        .btn-guardar:active {
+            background: #3a5a8a;
+            transform: scale(0.98);
+        }
+        
+        .mensaje-guardado {
+            text-align: center;
+            padding: 10px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        /* Dark mode */
+        @media (prefers-color-scheme: dark) {
+            body { background: #1a1a2e; }
+            .rutina-card, .stats, .date-selector { background: #2d2d44; }
+            .rutina-card h2 { color: #e0e0e0; }
+            .accion-item { background: #3d3d55; }
+            .accion-item .label-text { color: #e0e0e0; }
+            .accion-item .label-text.completada { color: #888; }
+            .stats .stat-item .numero { color: #7eb8ff; }
+            .stats .stat-item .label { color: #aaa; }
+            .date-selector label { color: #e0e0e0; }
+            .date-selector input { background: #3d3d55; color: #e0e0e0; border-color: #555; }
+            .accion-item.fallada { background: #3d2a2a; }
+            .accion-item .fallo input { background: #3d2a2a; border-color: #ff6b6b; color: #e0e0e0; }
+            .accion-item { background: #3d3d55; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 Mis Rutinas</h1>
+        
+        <div class="date-selector">
+            <label>📅 Fecha</label>
+            <input type="date" id="fechaInput">
+            <button class="btn-cargar" onclick="cargarDia()">Cargar</button>
+            <button class="btn-hoy" onclick="diaActual()">Hoy</button>
+            
+            <div class="btn-group">
+                <button class="btn-exportar" onclick="exportarDatos()">📤 Exportar</button>
+                <button class="btn-importar" onclick="document.getElementById('fileInput').click()">📥 Importar</button>
+                <button class="btn-respaldos" onclick="mostrarRespaldos()">📂 Ver</button>
+                <input type="file" id="fileInput" accept=".json" style="display:none" onchange="importarDatos(event)">
+            </div>
+        </div>
+        
+        <!-- Estadísticas -->
+        <div class="stats" id="stats">
+            <div class="stat-item">
+                <div class="numero" id="totalRutinas">0</div>
+                <div class="label">Rutinas</div>
+            </div>
+            <div class="stat-item">
+                <div class="numero" id="totalAcciones">0</div>
+                <div class="label">Acciones</div>
+            </div>
+            <div class="stat-item">
+                <div class="numero" id="completadas">0</div>
+                <div class="label">Completadas</div>
+            </div>
+            <div class="stat-item">
+                <div class="numero" id="porcentaje">0%</div>
+                <div class="label">Progreso</div>
+            </div>
+        </div>
+        
+        <div id="rutinasContainer"></div>
+        
+        <button class="btn-guardar" onclick="guardarDia()">💾 Guardar Día</button>
+        <div class="mensaje-guardado" id="mensajeGuardado">✅ ¡Guardado!</div>
+    </div>
+    
+    <script>
+        const RUTINAS = [
+            {
+                id: 'manana',
+                nombre: '🌅 Mañana',
+                acciones: ['Hacer la cama', 'Cepillarse', 'Ejercicio', 'Desayunar']
+            },
+            {
+                id: 'noche',
+                nombre: '🌙 Noche',
+                acciones: ['Ducharse', 'Cepillarse', 'Leer 15min', 'Apagar pantallas']
+            },
+            {
+                id: 'limpieza',
+                nombre: '🧹 Limpieza',
+                acciones: ['Barrer', 'Limpiar polvo', 'Lavar platos', 'Sacar basura']
+            },
+            {
+                id: 'extra',
+                nombre: '🧘 Extra',
+                acciones: ['Meditar 5min', 'Escribir diario', 'Estiramientos']
+            }
+        ];
+        
+        let estado = {};
+        let fechaActual = '';
+        
+        function formatearFecha(fecha) {
+            const d = new Date(fecha);
+            return d.toISOString().split('T')[0];
+        }
+        
+        function diaActual() {
+            const hoy = new Date();
+            document.getElementById('fechaInput').value = formatearFecha(hoy);
+            cargarDia();
+        }
+        
+        function cargarDia() {
+            fechaActual = document.getElementById('fechaInput').value;
+            if (!fechaActual) { alert('Selecciona una fecha'); return; }
+            
+            const key = `rutinas_${fechaActual}`;
+            const guardado = localStorage.getItem(key);
+            
+            if (guardado) {
+                estado = JSON.parse(guardado);
+            } else {
+                estado = {};
+                RUTINAS.forEach(rutina => {
+                    estado[rutina.id] = { completadas: {}, justificaciones: {} };
+                    rutina.acciones.forEach((_, index) => {
+                        estado[rutina.id].completadas[index] = true;
+                        estado[rutina.id].justificaciones[index] = '';
+                    });
+                });
+            }
+            
+            renderizarRutinas();
+            actualizarStats();
+        }
+        
+        function renderizarRutinas() {
+            const container = document.getElementById('rutinasContainer');
+            container.innerHTML = '';
+            
+            RUTINAS.forEach(rutina => {
+                const data = estado[rutina.id] || { completadas: {}, justificaciones: {} };
+                let completadas = 0;
+                rutina.acciones.forEach((_, i) => {
+                    if (data.completadas[i] !== false) completadas++;
+                });
+                const pct = rutina.acciones.length > 0 ? Math.round((completadas / rutina.acciones.length) * 100) : 0;
+                
+                const card = document.createElement('div');
+                card.className = 'rutina-card';
+                card.innerHTML = `
+                    <h2>${rutina.nombre} <span class="progreso">${pct}%</span></h2>
+                    ${rutina.acciones.map((accion, i) => {
+                        const completada = data.completadas[i] !== false;
+                        const justif = data.justificaciones[i] || '';
+                        return `
+                            <div class="accion-item ${!completada ? 'fallada' : ''}">
+                                <input type="checkbox" ${completada ? 'checked' : ''} onchange="toggleAccion('${rutina.id}', ${i})">
+                                <span class="label-text ${completada ? 'completada' : ''}">${accion}</span>
+                                <button class="toggle-justificacion" onclick="toggleJustificacion('${rutina.id}', ${i})">
+                                    ${justif ? '✏️' : '📝'}
+                                </button>
+                                <div class="fallo">
+                                    <input type="text" placeholder="¿Por qué no lo hiciste?" value="${justif}" onchange="guardarJustificacion('${rutina.id}', ${i}, this.value)">
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                `;
+                container.appendChild(card);
+            });
+        }
+        
+        function toggleAccion(rutinaId, index) {
+            if (!estado[rutinaId]) estado[rutinaId] = { completadas: {}, justificaciones: {} };
+            estado[rutinaId].completadas[index] = !estado[rutinaId].completadas[index];
+            if (estado[rutinaId].completadas[index]) estado[rutinaId].justificaciones[index] = '';
+            renderizarRutinas();
+            actualizarStats();
+            guardarAutomatico();
+        }
+        
+        function guardarJustificacion(rutinaId, index, valor) {
+            if (!estado[rutinaId]) estado[rutinaId] = { completadas: {}, justificaciones: {} };
+            estado[rutinaId].justificaciones[index] = valor;
+            guardarAutomatico();
+        }
+        
+        function toggleJustificacion(rutinaId, index) {
+            const items = document.querySelectorAll('.accion-item');
+        }
+        
+        function actualizarStats() {
+            let totalRutinas = RUTINAS.length;
+            let totalAcciones = 0, completadas = 0;
+            RUTINAS.forEach(rutina => {
+                const data = estado[rutina.id] || { completadas: {} };
+                rutina.acciones.forEach((_, i) => {
+                    totalAcciones++;
+                    if (data.completadas[i] !== false) completadas++;
+                });
+            });
+            const pct = totalAcciones > 0 ? Math.round((completadas / totalAcciones) * 100) : 0;
+            document.getElementById('totalRutinas').textContent = totalRutinas;
+            document.getElementById('totalAcciones').textContent = totalAcciones;
+            document.getElementById('completadas').textContent = completadas;
+            document.getElementById('porcentaje').textContent = pct + '%';
+        }
+        
+        function guardarDia() {
+            if (fechaActual) {
+                localStorage.setItem(`rutinas_${fechaActual}`, JSON.stringify(estado));
+                const msg = document.getElementById('mensajeGuardado');
+                msg.style.display = 'block';
+                setTimeout(() => msg.style.display = 'none', 3000);
+            }
+        }
+        
+        function guardarAutomatico() {
+            if (fechaActual) localStorage.setItem(`rutinas_${fechaActual}`, JSON.stringify(estado));
+        }
+        
+        function exportarDatos() {
+            const fechas = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('rutinas_')) {
+                    fechas.push({
+                        fecha: key.replace('rutinas_', ''),
+                        datos: JSON.parse(localStorage.getItem(key))
+                    });
+                }
+            }
+            if (fechas.length === 0) { alert('No hay datos'); return; }
+            const blob = new Blob([JSON.stringify(fechas, null, 2)], {type: 'application/json'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `rutinas_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            alert(`✅ Exportado ${fechas.length} días`);
+        }
+        
+        function importarDatos(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const datos = JSON.parse(e.target.result);
+                    if (!Array.isArray(datos)) throw new Error('Formato incorrecto');
+                    let ok = 0;
+                    datos.forEach(item => {
+                        try { localStorage.setItem(`rutinas_${item.fecha}`, JSON.stringify(item.datos)); ok++; }
+                        catch(e) {}
+                    });
+                    alert(`✅ Importados ${ok} días`);
+                    cargarDia();
+                } catch(err) { alert('❌ Error: ' + err.message); }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+        
+        function mostrarRespaldos() {
+            const fechas = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('rutinas_')) {
+                    fechas.push(key.replace('rutinas_', ''));
+                }
+            }
+            fechas.sort().reverse();
+            if (fechas.length === 0) { alert('📭 No hay respaldos'); return; }
+            alert('📂 RESPALDOS:\n\n' + fechas.map((f, i) => `${i+1}. 📅 ${f}`).join('\n') + `\n\nTotal: ${fechas.length} días`);
+        }
+        
+        // Iniciar
+        diaActual();
+        
+        // Guardar automático cada 10 segundos
+        setInterval(guardarAutomatico, 10000);
+    </script>
+</body>
+</html>
