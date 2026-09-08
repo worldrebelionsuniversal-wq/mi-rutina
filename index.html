@@ -13,25 +13,31 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
+        html, body {
+            height: 100%;
+        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0a0a;
-            padding: 20px 20px 30px;
-            min-height: 100vh;
+            background: #000000;
+            padding: 20px 20px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
         .container {
             max-width: 560px;
             width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         /* Encabezado */
         .app-header {
             text-align: center;
-            padding: 16px 0 20px;
-            margin-bottom: 16px;
+            padding: 40px 0 12px;
+            margin-bottom: 12px;
             border-bottom: 2px solid #ffffff;
         }
         .app-header h1 {
@@ -39,19 +45,18 @@
             font-weight: 800;
             letter-spacing: 2px;
             color: #ffffff;
-            text-shadow: 0 0 20px rgba(255,255,255,0.1);
         }
 
         /* Fecha actual */
         .fecha-info {
             text-align: center;
             font-size: 15px;
-            color: #cccccc;
-            background: #1a1a1a;
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-bottom: 16px;
-            border: 1px solid #333333;
+            color: #ffffff;
+            background: transparent;
+            padding: 8px 16px 16px;
+            border-radius: 0;
+            margin-bottom: 8px;
+            border: none;
             font-weight: 500;
         }
         .fecha-info span {
@@ -59,10 +64,17 @@
             color: #ffffff;
         }
 
+        /* Contenedor de rutinas - ocupa el espacio disponible */
+        #rutinasContainer {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 10px;
+        }
+
         /* Tarjetas de rutina */
         .rutina-card {
-            background: #1a1a1a;
-            border-radius: 18px;
+            background: #000000;
+            border-radius: 0;
             margin-bottom: 14px;
             border: 1px solid #333333;
             overflow: hidden;
@@ -72,15 +84,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 18px;
+            padding: 14px 16px;
             cursor: pointer;
             user-select: none;
             transition: background 0.15s;
             border-bottom: 1px solid transparent;
         }
-        .rutina-header:active { background: #2a2a2a; }
+        .rutina-header:active { background: #111111; }
         .rutina-header h2 {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 700;
             color: #ffffff;
             display: flex;
@@ -89,22 +101,22 @@
             flex-wrap: wrap;
         }
         .rutina-header .horario {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 400;
-            color: #888888;
+            color: #666666;
         }
         .rutina-header .badge {
-            font-size: 12px;
-            background: #2a2a2a;
-            padding: 2px 10px;
-            border-radius: 20px;
+            font-size: 11px;
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
             color: #4ade80;
             font-weight: 600;
-            border: 1px solid #333333;
+            border: none;
         }
         .rutina-header .arrow {
-            font-size: 20px;
-            color: #888888;
+            font-size: 18px;
+            color: #666666;
             transition: transform 0.3s ease;
             display: inline-block;
         }
@@ -115,11 +127,11 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.4s ease, padding 0.3s ease;
-            padding: 0 18px;
+            padding: 0 16px;
         }
         .rutina-body.open {
             max-height: 2000px;
-            padding: 0 18px 16px;
+            padding: 0 16px 16px;
         }
 
         .accion-item {
@@ -128,14 +140,14 @@
             gap: 12px;
             padding: 10px 8px;
             margin: 4px 0;
-            background: #222222;
-            border-radius: 14px;
+            background: transparent;
+            border-radius: 0;
             transition: background 0.15s;
             flex-wrap: wrap;
             border-left: 3px solid transparent;
         }
         .accion-item.fallada {
-            background: #2a1a1a;
+            background: #0a0505;
             border-left-color: #ef4444;
         }
         .accion-item input[type="checkbox"] {
@@ -144,7 +156,8 @@
             accent-color: #22c55e;
             cursor: pointer;
             flex-shrink: 0;
-            border-radius: 5px;
+            border-radius: 4px;
+            background: #000000;
         }
         .accion-item input[type="checkbox"]:checked {
             accent-color: #22c55e;
@@ -158,7 +171,7 @@
         }
         .accion-item .label-text.completada {
             text-decoration: line-through;
-            color: #666666;
+            color: #555555;
             font-weight: 400;
         }
         .accion-item .fallo {
@@ -169,10 +182,10 @@
         .accion-item .fallo input {
             width: 100%;
             padding: 8px 14px;
-            border: 1px solid #444444;
+            border: 1px solid #333333;
             border-radius: 30px;
             font-size: 13px;
-            background: #1a1a1a;
+            background: #000000;
             color: #e0e0e0;
             outline: none;
             transition: 0.2s;
@@ -191,29 +204,32 @@
             cursor: pointer;
             padding: 4px 6px;
             border-radius: 30px;
-            color: #888888;
+            color: #666666;
             transition: 0.1s;
             line-height: 1;
         }
         .toggle-justificacion:active {
-            background: #2a2a2a;
+            background: #1a1a1a;
         }
 
-        /* Botón guardar - blanco con texto negro */
+        /* Botón guardar - abajo siempre */
+        .btn-wrapper {
+            margin-top: auto;
+            padding: 10px 0 20px;
+        }
         .btn-guardar-principal {
             width: 100%;
             padding: 16px;
             background: #ffffff;
-            color: #0a0a0a;
+            color: #000000;
             border: 2px solid #ffffff;
             border-radius: 40px;
             font-size: 18px;
             font-weight: 700;
             letter-spacing: 1px;
             cursor: pointer;
-            margin-top: 20px;
             transition: 0.15s;
-            box-shadow: 0 4px 20px rgba(255,255,255,0.1);
+            box-shadow: 0 4px 20px rgba(255,255,255,0.05);
         }
         .btn-guardar-principal:active {
             transform: scale(0.97);
@@ -222,22 +238,22 @@
         .mensaje-guardado {
             text-align: center;
             padding: 12px;
-            background: #1a3a2a;
+            background: #0a1a0a;
             color: #4ade80;
             border-radius: 40px;
-            margin-top: 12px;
+            margin-top: 8px;
             font-weight: 500;
             display: none;
             font-size: 15px;
-            border: 1px solid #2a5a3a;
+            border: 1px solid #1a3a1a;
         }
 
         /* Scrollbar personalizada */
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 4px;
         }
         ::-webkit-scrollbar-track {
-            background: #0a0a0a;
+            background: #000000;
         }
         ::-webkit-scrollbar-thumb {
             background: #333333;
@@ -264,9 +280,12 @@
     <!-- Contenedor de rutinas -->
     <div id="rutinasContainer"></div>
 
-    <!-- Botón guardar -->
-    <button class="btn-guardar-principal" onclick="guardarDia()">Guardar día en Google Sheets</button>
-    <div class="mensaje-guardado" id="mensajeGuardado">¡Guardado correctamente!</div>
+    <!-- Botón guardar - siempre abajo -->
+    <div class="btn-wrapper">
+        <button class="btn-guardar-principal" onclick="guardarDia()">Guardar día en Google Sheets</button>
+        <div class="mensaje-guardado" id="mensajeGuardado">¡Guardado correctamente!</div>
+    </div>
+
 </div>
 
 <script>
@@ -415,7 +434,7 @@
                         <input type="checkbox" ${completada ? 'checked' : ''} onchange="toggleAccion('${rutina.id}', ${i})">
                         <span class="label-text ${completada ? 'completada' : ''}">${accion}</span>
                         <button class="toggle-justificacion" onclick="toggleJustificacion('${rutina.id}', ${i})">
-                            ${justif ? '' : ''}
+                            ${justif ? '✏️' : '📝'}
                         </button>
                         <div class="fallo">
                             <input type="text" placeholder="¿Por qué no lo hiciste?" value="${justif}" onchange="guardarJustificacion('${rutina.id}', ${i}, this.value)">
@@ -535,7 +554,7 @@
         //  CONEXIÓN CON GOOGLE APPS SCRIPT
         //  ⚠️ REEMPLAZA CON TU URL DE WEB APP
         // ============================================================
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx7dDzpKBIcDjEAy-MIWJHJVnW-tNOW2N4ihtCoTxaSuu-kAFR11h568O4v5RE_8TIL/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/TU_ID_AQUI/exec';
 
         fetch(SCRIPT_URL, {
             method: 'POST',
@@ -546,14 +565,14 @@
             body: JSON.stringify(datos)
         })
         .then(() => {
-            mostrarMensaje('✅ ¡Datos enviados a Google Sheets!');
+            mostrarMensaje('¡Datos enviados a Google Sheets!');
         })
         .catch(error => {
             console.error('Error:', error);
-            mostrarMensaje('⚠️ Error al enviar. Revisa la consola.', true);
+            mostrarMensaje('Error al enviar. Revisa la consola.', true);
         });
 
-        mostrarMensaje('GUARDADO');
+        mostrarMensaje('Datos guardados localmente');
     }
 
     function mostrarMensaje(texto, esError = false) {
@@ -561,19 +580,19 @@
         msg.textContent = texto;
         msg.style.display = 'block';
         if (esError) {
-            msg.style.background = '#2a1a1a';
+            msg.style.background = '#1a0a0a';
             msg.style.color = '#ef4444';
-            msg.style.borderColor = '#4a2a2a';
+            msg.style.borderColor = '#3a1a1a';
         } else {
-            msg.style.background = '#1a3a2a';
+            msg.style.background = '#0a1a0a';
             msg.style.color = '#4ade80';
-            msg.style.borderColor = '#2a5a3a';
+            msg.style.borderColor = '#1a3a1a';
         }
         setTimeout(() => {
             msg.style.display = 'none';
-            msg.style.background = '#1a3a2a';
+            msg.style.background = '#0a1a0a';
             msg.style.color = '#4ade80';
-            msg.style.borderColor = '#2a5a3a';
+            msg.style.borderColor = '#1a3a1a';
         }, 4000);
     }
 
