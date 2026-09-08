@@ -433,7 +433,7 @@
                         <input type="checkbox" ${completada ? 'checked' : ''} onchange="toggleAccion('${rutina.id}', ${i})">
                         <span class="label-text ${completada ? 'completada' : ''}">${accion}</span>
                         <button class="toggle-justificacion" onclick="toggleJustificacion('${rutina.id}', ${i})">
-                            ${justif ? '✏️' : '📝'}
+                            ${justif ? '' : ''}
                         </button>
                         <div class="fallo">
                             <input type="text" placeholder="¿Por qué no lo hiciste?" value="${justif}" onchange="guardarJustificacion('${rutina.id}', ${i}, this.value)">
