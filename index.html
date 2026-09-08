@@ -269,8 +269,8 @@
     <div id="rutinasContainer"></div>
 
     <!-- Botón guardar -->
-    <button class="btn-guardar-principal" onclick="guardarDia()">💾 Guardar día en Google Sheets</button>
-    <div class="mensaje-guardado" id="mensajeGuardado">✅ ¡Guardado correctamente!</div>
+    <button class="btn-guardar-principal" onclick="guardarDia()">Guardar día en Google Sheets</button>
+    <div class="mensaje-guardado" id="mensajeGuardado">¡Guardado correctamente!</div>
 </div>
 
 <script>
@@ -551,7 +551,7 @@
         //  CONEXIÓN CON GOOGLE APPS SCRIPT
         //  ⚠️ REEMPLAZA CON TU URL DE WEB APP
         // ============================================================
-        const SCRIPT_URL = 'https://script.google.com/macros/s/TU_ID_AQUI/exec'; // <-- CAMBIAR AQUÍ
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx7dDzpKBIcDjEAy-MIWJHJVnW-tNOW2N4ihtCoTxaSuu-kAFR11h568O4v5RE_8TIL/exec'; // <-- CAMBIAR AQUÍ
 
         fetch(SCRIPT_URL, {
             method: 'POST',
@@ -562,14 +562,14 @@
             body: JSON.stringify(datos)
         })
         .then(() => {
-            mostrarMensaje('✅ ¡Datos enviados a Google Sheets!');
+            mostrarMensaje('¡Datos enviados a Google Sheets!');
         })
         .catch(error => {
             console.error('Error:', error);
-            mostrarMensaje('⚠️ Error al enviar. Revisa la consola.', true);
+            mostrarMensaje('Error al enviar. Revisa la consola.', true);
         });
 
-        mostrarMensaje('💾 Datos guardados localmente');
+        mostrarMensaje('Datos guardados localmente');
     }
 
     function mostrarMensaje(texto, esError = false) {
