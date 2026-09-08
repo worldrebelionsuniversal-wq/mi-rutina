@@ -415,7 +415,7 @@
                         <input type="checkbox" ${completada ? 'checked' : ''} onchange="toggleAccion('${rutina.id}', ${i})">
                         <span class="label-text ${completada ? 'completada' : ''}">${accion}</span>
                         <button class="toggle-justificacion" onclick="toggleJustificacion('${rutina.id}', ${i})">
-                            ${justif ? '✏️' : '📝'}
+                            ${justif ? '' : ''}
                         </button>
                         <div class="fallo">
                             <input type="text" placeholder="¿Por qué no lo hiciste?" value="${justif}" onchange="guardarJustificacion('${rutina.id}', ${i}, this.value)">
@@ -535,7 +535,7 @@
         //  CONEXIÓN CON GOOGLE APPS SCRIPT
         //  ⚠️ REEMPLAZA CON TU URL DE WEB APP
         // ============================================================
-        const SCRIPT_URL = 'https://script.google.com/macros/s/TU_ID_AQUI/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx7dDzpKBIcDjEAy-MIWJHJVnW-tNOW2N4ihtCoTxaSuu-kAFR11h568O4v5RE_8TIL/exec';
 
         fetch(SCRIPT_URL, {
             method: 'POST',
@@ -546,14 +546,14 @@
             body: JSON.stringify(datos)
         })
         .then(() => {
-            mostrarMensaje('✅ ¡Datos enviados a Google Sheets!');
+            mostrarMensaje('¡Datos enviados a Google Sheets!');
         })
         .catch(error => {
             console.error('Error:', error);
             mostrarMensaje('⚠️ Error al enviar. Revisa la consola.', true);
         });
 
-        mostrarMensaje('💾 Datos guardados localmente');
+        mostrarMensaje('Datos Guardados Exitosamente');
     }
 
     function mostrarMensaje(texto, esError = false) {
