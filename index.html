@@ -15,7 +15,7 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f0f4f9;
+            background: #0a0a0a;
             padding: 16px 12px 30px;
             min-height: 100vh;
             display: flex;
@@ -30,44 +30,41 @@
         /* Encabezado */
         .app-header {
             text-align: center;
-            padding: 12px 0 16px;
-            margin-bottom: 14px;
+            padding: 16px 0 20px;
+            margin-bottom: 16px;
+            border-bottom: 2px solid #ffffff;
         }
         .app-header h1 {
-            font-size: 22px;
+            font-size: 28px;
             font-weight: 800;
-            letter-spacing: 1px;
-            color: #1a2634;
-            background: linear-gradient(135deg, #1a2634 0%, #3a4f6b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.1);
         }
 
-        /* Fecha actual (solo informativa) */
+        /* Fecha actual */
         .fecha-info {
             text-align: center;
-            font-size: 14px;
-            color: #5a6a7e;
-            background: white;
-            padding: 10px;
+            font-size: 15px;
+            color: #cccccc;
+            background: #1a1a1a;
+            padding: 12px;
             border-radius: 12px;
             margin-bottom: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #333333;
             font-weight: 500;
         }
         .fecha-info span {
             font-weight: 700;
-            color: #1a2634;
+            color: #ffffff;
         }
 
-        /* Tarjetas de rutina - acordeón */
+        /* Tarjetas de rutina */
         .rutina-card {
-            background: white;
+            background: #1a1a1a;
             border-radius: 18px;
             margin-bottom: 14px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.04);
-            border: 1px solid rgba(0,0,0,0.03);
+            border: 1px solid #333333;
             overflow: hidden;
             transition: 0.2s;
         }
@@ -81,11 +78,11 @@
             transition: background 0.15s;
             border-bottom: 1px solid transparent;
         }
-        .rutina-header:active { background: #f5f8fc; }
+        .rutina-header:active { background: #2a2a2a; }
         .rutina-header h2 {
             font-size: 17px;
             font-weight: 700;
-            color: #1a2634;
+            color: #ffffff;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -94,19 +91,20 @@
         .rutina-header .horario {
             font-size: 13px;
             font-weight: 400;
-            color: #7a8a9e;
+            color: #888888;
         }
         .rutina-header .badge {
             font-size: 12px;
-            background: #eef3fc;
+            background: #2a2a2a;
             padding: 3px 12px;
             border-radius: 20px;
-            color: #3a5a7a;
+            color: #4ade80;
             font-weight: 600;
+            border: 1px solid #333333;
         }
         .rutina-header .arrow {
             font-size: 20px;
-            color: #7a8a9e;
+            color: #888888;
             transition: transform 0.3s ease;
             display: inline-block;
         }
@@ -130,34 +128,37 @@
             gap: 12px;
             padding: 10px 8px;
             margin: 4px 0;
-            background: #f9fafc;
+            background: #222222;
             border-radius: 14px;
             transition: background 0.15s;
             flex-wrap: wrap;
             border-left: 3px solid transparent;
         }
         .accion-item.fallada {
-            background: #fef6f5;
-            border-left-color: #d9534f;
+            background: #2a1a1a;
+            border-left-color: #ef4444;
         }
         .accion-item input[type="checkbox"] {
             width: 20px;
             height: 20px;
-            accent-color: #2a7a5a;
+            accent-color: #22c55e;
             cursor: pointer;
             flex-shrink: 0;
             border-radius: 5px;
+        }
+        .accion-item input[type="checkbox"]:checked {
+            accent-color: #22c55e;
         }
         .accion-item .label-text {
             flex: 1;
             font-size: 14px;
             font-weight: 500;
-            color: #1f2a3c;
+            color: #e0e0e0;
             min-width: 100px;
         }
         .accion-item .label-text.completada {
             text-decoration: line-through;
-            color: #8e9aad;
+            color: #666666;
             font-weight: 400;
         }
         .accion-item .fallo {
@@ -168,17 +169,17 @@
         .accion-item .fallo input {
             width: 100%;
             padding: 8px 14px;
-            border: 1px solid #e2d2d0;
+            border: 1px solid #444444;
             border-radius: 30px;
             font-size: 13px;
-            background: #fffbfa;
-            color: #2d3a4a;
+            background: #1a1a1a;
+            color: #e0e0e0;
             outline: none;
             transition: 0.2s;
         }
         .accion-item .fallo input:focus {
-            border-color: #d9534f;
-            box-shadow: 0 0 0 2px rgba(217,83,79,0.12);
+            border-color: #ef4444;
+            box-shadow: 0 0 0 2px rgba(239,68,68,0.15);
         }
         .accion-item.fallada .fallo {
             display: block;
@@ -190,21 +191,21 @@
             cursor: pointer;
             padding: 4px 6px;
             border-radius: 30px;
-            color: #5f6b7a;
+            color: #888888;
             transition: 0.1s;
             line-height: 1;
         }
         .toggle-justificacion:active {
-            background: #eef0f5;
+            background: #2a2a2a;
         }
 
-        /* Botón guardar principal - con margen superior */
+        /* Botón guardar */
         .btn-guardar-principal {
             width: 100%;
             padding: 16px;
-            background: #1a2634;
-            color: white;
-            border: none;
+            background: #ffffff;
+            color: #0a0a0a;
+            border: 2px solid #ffffff;
             border-radius: 40px;
             font-size: 18px;
             font-weight: 700;
@@ -212,43 +213,38 @@
             cursor: pointer;
             margin-top: 20px;
             transition: 0.15s;
-            box-shadow: 0 4px 14px rgba(26,38,52,0.15);
+            box-shadow: 0 4px 20px rgba(255,255,255,0.1);
         }
         .btn-guardar-principal:active {
             transform: scale(0.97);
-            background: #2f4057;
+            background: #e0e0e0;
         }
         .mensaje-guardado {
             text-align: center;
             padding: 12px;
-            background: #dff0e6;
-            color: #1a5a3a;
+            background: #1a3a2a;
+            color: #4ade80;
             border-radius: 40px;
             margin-top: 12px;
             font-weight: 500;
             display: none;
             font-size: 15px;
+            border: 1px solid #2a5a3a;
         }
 
-        /* Dark mode suave */
-        @media (prefers-color-scheme: dark) {
-            body { background: #161c28; }
-            .rutina-card, .fecha-info { background: #242d3d; border-color: #2f3a4e; }
-            .app-header h1 { background: linear-gradient(135deg, #c8d8f0, #a0b8d8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-            .fecha-info { color: #8899b0; }
-            .fecha-info span { color: #d8e0ec; }
-            .rutina-header h2 { color: #dde4ef; }
-            .rutina-header .horario { color: #8899b0; }
-            .rutina-header .badge { background: #2a3a52; color: #9cb8e0; }
-            .accion-item { background: #1f2838; }
-            .accion-item .label-text { color: #d8e0ec; }
-            .accion-item .label-text.completada { color: #6a7b92; }
-            .accion-item.fallada { background: #2f2328; border-left-color: #d9534f; }
-            .accion-item .fallo input { background: #2f2328; border-color: #5a3e3e; color: #d8e0ec; }
-            .btn-guardar-principal { background: #3a4a6b; }
-            .mensaje-guardado { background: #1f3a2e; color: #b0d8c0; }
-            .rutina-header:active { background: #1f2838; }
-            .toggle-justificacion:active { background: #2f3a4e; }
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333333;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444444;
         }
     </style>
 </head>
@@ -260,7 +256,7 @@
         <h1>SEGUIMIENTO DIARIO DE RUTINAS WRU</h1>
     </div>
 
-    <!-- Fecha actual (solo informativa) -->
+    <!-- Fecha actual -->
     <div class="fecha-info" id="fechaInfo">
         <span id="fechaDisplay">Cargando...</span>
     </div>
@@ -270,7 +266,7 @@
 
     <!-- Botón guardar -->
     <button class="btn-guardar-principal" onclick="guardarDia()">Guardar día en Google Sheets</button>
-    <div class="mensaje-guardado" id="mensajeGuardado">¡Guardado correctamente!</div>
+    <div class="mensaje-guardado" id="mensajeGuardado">✅ ¡Guardado correctamente!</div>
 </div>
 
 <script>
@@ -355,7 +351,7 @@
     }
 
     // --------------------------------------------------------------
-    //  CARGAR DÍA (desde localStorage)
+    //  CARGAR DÍA
     // --------------------------------------------------------------
     function cargarDia() {
         const key = `rutinas_${fechaActual}`;
@@ -377,7 +373,7 @@
     }
 
     // --------------------------------------------------------------
-    //  RENDERIZAR RUTINAS (acordeón)
+    //  RENDERIZAR RUTINAS
     // --------------------------------------------------------------
     function renderizarRutinas() {
         const container = document.getElementById('rutinasContainer');
@@ -458,7 +454,7 @@
     }
 
     // --------------------------------------------------------------
-    //  INTERACCIONES - NO se cierra al desmarcar
+    //  INTERACCIONES
     // --------------------------------------------------------------
     function toggleAccion(rutinaId, index) {
         if (!estado[rutinaId]) estado[rutinaId] = { completadas: {}, justificaciones: {} };
@@ -466,14 +462,11 @@
         if (estado[rutinaId].completadas[index]) {
             estado[rutinaId].justificaciones[index] = '';
         }
-        // IMPORTANTE: Renderizamos SOLO el contenido de las acciones, sin cerrar el acordeón
         renderizarRutinasManteniendoEstado();
         guardarAutomatico();
     }
 
-    // Función que renderiza manteniendo el estado de apertura
     function renderizarRutinasManteniendoEstado() {
-        // Guardar qué rutinas están abiertas
         const abiertas = {};
         RUTINAS.forEach(r => {
             const body = document.getElementById(`body_${r.id}`);
@@ -482,10 +475,8 @@
             }
         });
 
-        // Renderizar normal
         renderizarRutinas();
 
-        // Restaurar estado de apertura
         RUTINAS.forEach(r => {
             if (abiertas[r.id]) {
                 const body = document.getElementById(`body_${r.id}`);
@@ -504,30 +495,23 @@
         guardarAutomatico();
     }
 
-    function toggleJustificacion(rutinaId, index) {
-        // Mantener interacción visual
-    }
+    function toggleJustificacion(rutinaId, index) {}
 
     // --------------------------------------------------------------
-    //  GUARDAR EN LOCALSTORAGE
+    //  GUARDAR
     // --------------------------------------------------------------
     function guardarAutomatico() {
         if (fechaActual) localStorage.setItem(`rutinas_${fechaActual}`, JSON.stringify(estado));
     }
 
-    // --------------------------------------------------------------
-    //  GUARDAR EN GOOGLE SHEETS
-    // --------------------------------------------------------------
     function guardarDia() {
         if (!fechaActual) {
             alert('Error: No hay fecha seleccionada.');
             return;
         }
 
-        // Guardar localmente
         localStorage.setItem(`rutinas_${fechaActual}`, JSON.stringify(estado));
 
-        // Construir datos
         const datos = {
             fecha: fechaActual,
             rutinas: []
@@ -551,7 +535,7 @@
         //  CONEXIÓN CON GOOGLE APPS SCRIPT
         //  ⚠️ REEMPLAZA CON TU URL DE WEB APP
         // ============================================================
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx7dDzpKBIcDjEAy-MIWJHJVnW-tNOW2N4ihtCoTxaSuu-kAFR11h568O4v5RE_8TIL/exec'; // <-- CAMBIAR AQUÍ
+        const SCRIPT_URL = 'https://script.google.com/macros/s/TU_ID_AQUI/exec';
 
         fetch(SCRIPT_URL, {
             method: 'POST',
@@ -562,14 +546,14 @@
             body: JSON.stringify(datos)
         })
         .then(() => {
-            mostrarMensaje('¡Datos enviados a Google Sheets!');
+            mostrarMensaje('✅ ¡Datos enviados a Google Sheets!');
         })
         .catch(error => {
             console.error('Error:', error);
-            mostrarMensaje('Error al enviar. Revisa la consola.', true);
+            mostrarMensaje('⚠️ Error al enviar. Revisa la consola.', true);
         });
 
-        mostrarMensaje('Datos guardados localmente');
+        mostrarMensaje('💾 Datos guardados localmente');
     }
 
     function mostrarMensaje(texto, esError = false) {
@@ -577,16 +561,19 @@
         msg.textContent = texto;
         msg.style.display = 'block';
         if (esError) {
-            msg.style.background = '#f8e0e0';
-            msg.style.color = '#8a2a2a';
+            msg.style.background = '#2a1a1a';
+            msg.style.color = '#ef4444';
+            msg.style.borderColor = '#4a2a2a';
         } else {
-            msg.style.background = '#dff0e6';
-            msg.style.color = '#1a5a3a';
+            msg.style.background = '#1a3a2a';
+            msg.style.color = '#4ade80';
+            msg.style.borderColor = '#2a5a3a';
         }
         setTimeout(() => {
             msg.style.display = 'none';
-            msg.style.background = '#dff0e6';
-            msg.style.color = '#1a5a3a';
+            msg.style.background = '#1a3a2a';
+            msg.style.color = '#4ade80';
+            msg.style.borderColor = '#2a5a3a';
         }, 4000);
     }
 
@@ -594,8 +581,6 @@
     //  INICIAR
     // --------------------------------------------------------------
     diaActual();
-
-    // Guardado automático cada 10 segundos
     setInterval(guardarAutomatico, 10000);
 </script>
 </body>
