@@ -30,11 +30,11 @@
         /* Encabezado */
         .app-header {
             text-align: center;
-            padding: 12px 0 10px;
+            padding: 12px 0 16px;
             margin-bottom: 14px;
         }
         .app-header h1 {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 800;
             letter-spacing: 1px;
             color: #1a2634;
@@ -44,59 +44,28 @@
             background-clip: text;
         }
         .app-header .sub {
-            font-size: 12px;
+            font-size: 13px;
             color: #7a8a9e;
             letter-spacing: 2px;
-            margin-top: 2px;
+            margin-top: 4px;
         }
 
-        /* Selector de fecha */
-        .date-bar {
+        /* Fecha actual (solo informativa, sin selector) */
+        .fecha-info {
+            text-align: center;
+            font-size: 14px;
+            color: #5a6a7e;
             background: white;
-            padding: 12px 16px;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
+            padding: 10px;
+            border-radius: 12px;
             margin-bottom: 16px;
-            flex-wrap: wrap;
-        }
-        .date-bar input[type="date"] {
-            border: none;
-            background: #f0f3f8;
-            padding: 10px 14px;
-            border-radius: 30px;
-            font-size: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             font-weight: 500;
-            color: #1e2a3a;
-            flex: 1;
-            min-width: 140px;
-            outline: none;
         }
-        .date-bar input[type="date"]:focus {
-            background: #e6ecf5;
+        .fecha-info span {
+            font-weight: 700;
+            color: #1a2634;
         }
-        .date-bar .btn-group {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .date-bar .btn-group button {
-            border: none;
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-            transition: 0.15s;
-            background: #4a6fa5;
-        }
-        .date-bar .btn-group button:active { transform: scale(0.95); }
-        .date-bar .btn-group .btn-hoy { background: #28a745; }
-        .date-bar .btn-group .btn-cargar { background: #6c7a8a; }
 
         /* Tarjetas de rutina - acordeón */
         .rutina-card {
@@ -126,6 +95,12 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-wrap: wrap;
+        }
+        .rutina-header .horario {
+            font-size: 13px;
+            font-weight: 400;
+            color: #7a8a9e;
         }
         .rutina-header .badge {
             font-size: 12px;
@@ -229,30 +204,6 @@
             background: #eef0f5;
         }
 
-        /* Stats */
-        .stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 6px;
-            background: white;
-            padding: 14px 12px;
-            border-radius: 16px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            text-align: center;
-        }
-        .stats .stat-item .numero {
-            font-size: 22px;
-            font-weight: 800;
-            color: #1a2634;
-        }
-        .stats .stat-item .label {
-            font-size: 11px;
-            color: #7a8a9e;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-        }
-
         /* Botón guardar principal */
         .btn-guardar-principal {
             width: 100%;
@@ -288,21 +239,21 @@
         /* Dark mode suave */
         @media (prefers-color-scheme: dark) {
             body { background: #161c28; }
-            .rutina-card, .date-bar, .stats { background: #242d3d; border-color: #2f3a4e; }
+            .rutina-card, .fecha-info { background: #242d3d; border-color: #2f3a4e; }
             .app-header h1 { background: linear-gradient(135deg, #c8d8f0, #a0b8d8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
             .app-header .sub { color: #8899b0; }
+            .fecha-info { color: #8899b0; }
+            .fecha-info span { color: #d8e0ec; }
             .rutina-header h2 { color: #dde4ef; }
+            .rutina-header .horario { color: #8899b0; }
             .rutina-header .badge { background: #2a3a52; color: #9cb8e0; }
             .accion-item { background: #1f2838; }
             .accion-item .label-text { color: #d8e0ec; }
             .accion-item .label-text.completada { color: #6a7b92; }
-            .date-bar input[type="date"] { background: #1f2838; color: #d8e0ec; }
             .accion-item.fallada { background: #2f2328; border-left-color: #d9534f; }
             .accion-item .fallo input { background: #2f2328; border-color: #5a3e3e; color: #d8e0ec; }
             .btn-guardar-principal { background: #3a4a6b; }
             .mensaje-guardado { background: #1f3a2e; color: #b0d8c0; }
-            .stats .stat-item .numero { color: #c8d8f0; }
-            .stats .stat-item .label { color: #8899b0; }
             .rutina-header:active { background: #1f2838; }
             .toggle-justificacion:active { background: #2f3a4e; }
         }
@@ -317,33 +268,9 @@
         <div class="sub">RUTINAS • HÁBITOS • PROGRESO</div>
     </div>
 
-    <!-- Selector de fecha -->
-    <div class="date-bar">
-        <input type="date" id="fechaInput">
-        <div class="btn-group">
-            <button class="btn-cargar" onclick="cargarDia()">Cargar</button>
-            <button class="btn-hoy" onclick="diaActual()">Hoy</button>
-        </div>
-    </div>
-
-    <!-- Estadísticas -->
-    <div class="stats" id="stats">
-        <div class="stat-item">
-            <div class="numero" id="totalAcciones">0</div>
-            <div class="label">Acciones</div>
-        </div>
-        <div class="stat-item">
-            <div class="numero" id="completadas">0</div>
-            <div class="label">Completadas</div>
-        </div>
-        <div class="stat-item">
-            <div class="numero" id="porcentaje">0%</div>
-            <div class="label">Progreso</div>
-        </div>
-        <div class="stat-item">
-            <div class="numero" id="pendientes">0</div>
-            <div class="label">Pendientes</div>
-        </div>
+    <!-- Fecha actual (solo informativa) -->
+    <div class="fecha-info" id="fechaInfo">
+        📅 <span id="fechaDisplay">Cargando...</span>
     </div>
 
     <!-- Contenedor de rutinas -->
@@ -411,7 +338,7 @@
     // --------------------------------------------------------------
     //  ESTADO GLOBAL
     // --------------------------------------------------------------
-    let estado = {};        // { rutinaId: { completadas: {index: bool}, justificaciones: {index: string} } }
+    let estado = {};
     let fechaActual = '';
 
     // --------------------------------------------------------------
@@ -422,9 +349,16 @@
         return d.toISOString().split('T')[0];
     }
 
+    function formatearFechaLegible(fecha) {
+        const d = new Date(fecha);
+        const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return d.toLocaleDateString('es-ES', opciones);
+    }
+
     function diaActual() {
         const hoy = new Date();
-        document.getElementById('fechaInput').value = formatearFecha(hoy);
+        fechaActual = formatearFecha(hoy);
+        document.getElementById('fechaDisplay').textContent = formatearFechaLegible(hoy);
         cargarDia();
     }
 
@@ -432,9 +366,6 @@
     //  CARGAR DÍA (desde localStorage)
     // --------------------------------------------------------------
     function cargarDia() {
-        fechaActual = document.getElementById('fechaInput').value;
-        if (!fechaActual) { alert('Selecciona una fecha'); return; }
-
         const key = `rutinas_${fechaActual}`;
         const guardado = localStorage.getItem(key);
 
@@ -445,13 +376,12 @@
             RUTINAS.forEach(rutina => {
                 estado[rutina.id] = { completadas: {}, justificaciones: {} };
                 rutina.acciones.forEach((_, index) => {
-                    estado[rutina.id].completadas[index] = true;  // por defecto completadas
+                    estado[rutina.id].completadas[index] = true;
                     estado[rutina.id].justificaciones[index] = '';
                 });
             });
         }
         renderizarRutinas();
-        actualizarStats();
     }
 
     // --------------------------------------------------------------
@@ -461,10 +391,9 @@
         const container = document.getElementById('rutinasContainer');
         container.innerHTML = '';
 
-        RUTINAS.forEach((rutina, rutinaIndex) => {
+        RUTINAS.forEach((rutina) => {
             const data = estado[rutina.id] || { completadas: {}, justificaciones: {} };
             
-            // Calcular progreso
             let completadas = 0;
             rutina.acciones.forEach((_, i) => {
                 if (data.completadas[i] !== false) completadas++;
@@ -474,13 +403,11 @@
 
             const card = document.createElement('div');
             card.className = 'rutina-card';
-            card.dataset.index = rutinaIndex;
 
-            // Cabecera (click para abrir/cerrar)
             const header = document.createElement('div');
             header.className = 'rutina-header';
             header.innerHTML = `
-                <h2>${rutina.nombre} <span style="font-size:13px;font-weight:400;color:#7a8a9e;">${rutina.horario}</span></h2>
+                <h2>${rutina.nombre} <span class="horario">${rutina.horario}</span></h2>
                 <div>
                     <span class="badge">${pct}%</span>
                     <span class="arrow" id="arrow_${rutina.id}">▼</span>
@@ -488,7 +415,6 @@
             `;
             header.addEventListener('click', () => toggleRutina(rutina.id));
 
-            // Cuerpo (acciones)
             const body = document.createElement('div');
             body.className = 'rutina-body';
             body.id = `body_${rutina.id}`;
@@ -516,7 +442,7 @@
             container.appendChild(card);
         });
 
-        // Por defecto, todas las rutinas empiezan cerradas
+        // Todas las rutinas empiezan cerradas
         RUTINAS.forEach(r => {
             const body = document.getElementById(`body_${r.id}`);
             const arrow = document.getElementById(`arrow_${r.id}`);
@@ -528,7 +454,7 @@
     }
 
     // --------------------------------------------------------------
-    //  ACORDEÓN: toggle abrir/cerrar
+    //  ACORDEÓN
     // --------------------------------------------------------------
     function toggleRutina(rutinaId) {
         const body = document.getElementById(`body_${rutinaId}`);
@@ -549,7 +475,6 @@
             estado[rutinaId].justificaciones[index] = '';
         }
         renderizarRutinas();
-        actualizarStats();
         guardarAutomatico();
     }
 
@@ -560,49 +485,29 @@
     }
 
     function toggleJustificacion(rutinaId, index) {
-        // Solo para mantener la interacción visual
-        const items = document.querySelectorAll('.accion-item');
+        // Mantener interacción visual
     }
 
     // --------------------------------------------------------------
-    //  ESTADÍSTICAS
-    // --------------------------------------------------------------
-    function actualizarStats() {
-        let totalAcciones = 0, completadas = 0;
-        RUTINAS.forEach(rutina => {
-            const data = estado[rutina.id] || { completadas: {} };
-            rutina.acciones.forEach((_, i) => {
-                totalAcciones++;
-                if (data.completadas[i] !== false) completadas++;
-            });
-        });
-        const pct = totalAcciones > 0 ? Math.round((completadas / totalAcciones) * 100) : 0;
-        document.getElementById('totalAcciones').textContent = totalAcciones;
-        document.getElementById('completadas').textContent = completadas;
-        document.getElementById('porcentaje').textContent = pct + '%';
-        document.getElementById('pendientes').textContent = totalAcciones - completadas;
-    }
-
-    // --------------------------------------------------------------
-    //  GUARDAR EN LOCALSTORAGE (backup local)
+    //  GUARDAR EN LOCALSTORAGE
     // --------------------------------------------------------------
     function guardarAutomatico() {
         if (fechaActual) localStorage.setItem(`rutinas_${fechaActual}`, JSON.stringify(estado));
     }
 
     // --------------------------------------------------------------
-    //  GUARDAR EN GOOGLE SHEETS (preparado para integración)
+    //  GUARDAR EN GOOGLE SHEETS
     // --------------------------------------------------------------
     function guardarDia() {
         if (!fechaActual) {
-            alert('Selecciona una fecha primero.');
+            alert('Error: No hay fecha seleccionada.');
             return;
         }
 
-        // Guardar localmente primero
+        // Guardar localmente
         localStorage.setItem(`rutinas_${fechaActual}`, JSON.stringify(estado));
 
-        // Construir datos para enviar a Google Sheets
+        // Construir datos
         const datos = {
             fecha: fechaActual,
             rutinas: []
@@ -623,32 +528,28 @@
         });
 
         // ============================================================
-        //  AQUÍ SE CONECTA CON GOOGLE APPS SCRIPT
-        //  Reemplaza la URL con la de tu Web App desplegada
+        //  CONEXIÓN CON GOOGLE APPS SCRIPT
+        //  Reemplaza con tu URL de Web App
         // ============================================================
-        const SCRIPT_URL = 'https://script.google.com/macros/s/TU_ID_AQUI/exec'; // <-- CAMBIAR
+        const SCRIPT_URL = 'https://script.google.com/macros/s/TU_ID_AQUI/exec';
 
-        // Enviar a Google Sheets
         fetch(SCRIPT_URL, {
             method: 'POST',
-            mode: 'no-cors',  // Importante para evitar CORS
+            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(datos)
         })
-        .then(response => {
-            // Con 'no-cors' no podemos leer la respuesta, pero el envío funciona
+        .then(() => {
             mostrarMensaje('✅ ¡Datos enviados a Google Sheets!');
         })
         .catch(error => {
-            console.error('Error al enviar a Google Sheets:', error);
-            // Mostrar mensaje de error pero no bloquear
-            mostrarMensaje('⚠️ Error al enviar a Google Sheets. Revisa la consola.', true);
+            console.error('Error:', error);
+            mostrarMensaje('⚠️ Error al enviar. Revisa la consola.', true);
         });
 
-        // Mostrar mensaje de confirmación local
-        mostrarMensaje('💾 Datos guardados localmente y enviados a Google Sheets');
+        mostrarMensaje('💾 Datos guardados localmente');
     }
 
     function mostrarMensaje(texto, esError = false) {
