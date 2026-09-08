@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <title>SEGUIMIENTO DIARIO DE RUTINAS</title>
+    <title>SEGUIMIENTO DIARIO DE RUTINAS WRU</title>
     <style>
         * {
             margin: 0;
@@ -34,7 +34,7 @@
             margin-bottom: 14px;
         }
         .app-header h1 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 800;
             letter-spacing: 1px;
             color: #1a2634;
@@ -43,14 +43,8 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .app-header .sub {
-            font-size: 13px;
-            color: #7a8a9e;
-            letter-spacing: 2px;
-            margin-top: 4px;
-        }
 
-        /* Fecha actual (solo informativa, sin selector) */
+        /* Fecha actual (solo informativa) */
         .fecha-info {
             text-align: center;
             font-size: 14px;
@@ -204,7 +198,7 @@
             background: #eef0f5;
         }
 
-        /* Botón guardar principal */
+        /* Botón guardar principal - con margen superior */
         .btn-guardar-principal {
             width: 100%;
             padding: 16px;
@@ -216,7 +210,7 @@
             font-weight: 700;
             letter-spacing: 1px;
             cursor: pointer;
-            margin-top: 4px;
+            margin-top: 20px;
             transition: 0.15s;
             box-shadow: 0 4px 14px rgba(26,38,52,0.15);
         }
@@ -241,7 +235,6 @@
             body { background: #161c28; }
             .rutina-card, .fecha-info { background: #242d3d; border-color: #2f3a4e; }
             .app-header h1 { background: linear-gradient(135deg, #c8d8f0, #a0b8d8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-            .app-header .sub { color: #8899b0; }
             .fecha-info { color: #8899b0; }
             .fecha-info span { color: #d8e0ec; }
             .rutina-header h2 { color: #dde4ef; }
@@ -264,13 +257,12 @@
 
     <!-- Encabezado -->
     <div class="app-header">
-        <h1>SEGUIMIENTO DIARIO</h1>
-        <div class="sub">RUTINAS • HÁBITOS • PROGRESO</div>
+        <h1>SEGUIMIENTO DIARIO DE RUTINAS WRU</h1>
     </div>
 
     <!-- Fecha actual (solo informativa) -->
     <div class="fecha-info" id="fechaInfo">
-        📅 <span id="fechaDisplay">Cargando...</span>
+        <span id="fechaDisplay">Cargando...</span>
     </div>
 
     <!-- Contenedor de rutinas -->
@@ -283,7 +275,7 @@
 
 <script>
     // --------------------------------------------------------------
-    //  RUTINAS DEFINIDAS (según especificación)
+    //  RUTINAS DEFINIDAS
     // --------------------------------------------------------------
     const RUTINAS = [
         {
@@ -466,7 +458,7 @@
     }
 
     // --------------------------------------------------------------
-    //  INTERACCIONES
+    //  INTERACCIONES - NO se cierra al desmarcar
     // --------------------------------------------------------------
     function toggleAccion(rutinaId, index) {
         if (!estado[rutinaId]) estado[rutinaId] = { completadas: {}, justificaciones: {} };
@@ -474,8 +466,36 @@
         if (estado[rutinaId].completadas[index]) {
             estado[rutinaId].justificaciones[index] = '';
         }
-        renderizarRutinas();
+        // IMPORTANTE: Renderizamos SOLO el contenido de las acciones, sin cerrar el acordeón
+        renderizarRutinasManteniendoEstado();
         guardarAutomatico();
+    }
+
+    // Función que renderiza manteniendo el estado de apertura
+    function renderizarRutinasManteniendoEstado() {
+        // Guardar qué rutinas están abiertas
+        const abiertas = {};
+        RUTINAS.forEach(r => {
+            const body = document.getElementById(`body_${r.id}`);
+            if (body && body.classList.contains('open')) {
+                abiertas[r.id] = true;
+            }
+        });
+
+        // Renderizar normal
+        renderizarRutinas();
+
+        // Restaurar estado de apertura
+        RUTINAS.forEach(r => {
+            if (abiertas[r.id]) {
+                const body = document.getElementById(`body_${r.id}`);
+                const arrow = document.getElementById(`arrow_${r.id}`);
+                if (body) {
+                    body.classList.add('open');
+                    if (arrow) arrow.classList.add('open');
+                }
+            }
+        });
     }
 
     function guardarJustificacion(rutinaId, index, valor) {
@@ -529,9 +549,9 @@
 
         // ============================================================
         //  CONEXIÓN CON GOOGLE APPS SCRIPT
-        //  Reemplaza con tu URL de Web App
+        //  ⚠️ REEMPLAZA CON TU URL DE WEB APP
         // ============================================================
-        const SCRIPT_URL = 'https://script.google.com/macros/s/TU_ID_AQUI/exec';
+        const SCRIPT_URL = 'https://script.google.com/macros/s/TU_ID_AQUI/exec'; // <-- CAMBIAR AQUÍ
 
         fetch(SCRIPT_URL, {
             method: 'POST',
